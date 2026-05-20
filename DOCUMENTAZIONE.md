@@ -74,7 +74,6 @@ Per mitigare la vulnerabilità è stato utilizzato il middleware di rate limitin
 
 Alla route vulnerabile HO AGGIUNTO la seguente protezione:
 
-```php
 Route::get('/articles/search', [ArticleController::class, 'articleSearch'])
     ->middleware('throttle:10,1')
     ->name('articles.search');
