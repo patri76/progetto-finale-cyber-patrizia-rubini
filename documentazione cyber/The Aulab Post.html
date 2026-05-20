@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    
+    <script type="module" src="http://[::1]:5173/@vite/client" data-navigate-track="reload"></script><link rel="stylesheet" href="http://[::1]:5173/resources/css/app.css" data-navigate-track="reload" /><script type="module" src="http://[::1]:5173/resources/js/app.js" data-navigate-track="reload"></script>    
+    <title>The Aulab Post</title>
+</head>
+<body>
+    <nav class="navbar navbar-expand-lg bg-body-tertiary" data-bs-theme="dark">
+    <div class="container-fluid">
+        <a class="navbar-brand" href="http://cyber.blog:8000">The Aulab Post</a>
+        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarSupportedContent">
+            <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+                <li class="nav-item">
+                    <a class="nav-link active" aria-current="page" href="http://cyber.blog:8000/careers">Work with us</a>
+                </li>
+                                        <li class="nav-item dropdown">
+                    <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                        Welcome guest
+                    </a>
+                    <ul class="dropdown-menu">
+                        <li><a class="dropdown-item" href="http://cyber.blog:8000/register">Sign Up</a></li>
+                        <li><a class="dropdown-item" href="http://cyber.blog:8000/login">Sign In</a></li>
+                    </ul>
+                </li>
+                        </ul>
+            <form action="http://cyber.blog:8000/articles/search" method="GET" class="d-flex" role="search">
+                <input class="form-control me-2" type="search" name="query" placeholder="Search articles..." aria-label="Search">
+                <button class="btn btn-outline-info" type="submit">Search</button>
+            </form>
+        </div>
+    </div>
+</nav>            <div class="min-vh-100">
+        <div class="container-fluid p-5 bg-secondary-subtle text-center">
+        <div class="row justify-content-center" style="height: 50vh">
+            <div class="col-12 d-flex flex-column justify-content-around">
+                <h1 class="display-1">The Aulab Post</h1>
+                <a href="http://cyber.blog:8000/articles/create" class="btn btn-outline-success btn-lg align-self-center p-3" style="width: 50%">Write an amazing article</a>
+            </div>
+        </div>
+    </div>
+    <div class="container my-5">
+        <div class="row justify-content-evenly">
+                    </div>
+    </div>
+    </div>
+    <!-- Place the first <script> tag in your HTML's <head> -->
+        <script src="https://cdn.tiny.cloud/1/6aujx1sqwo157ot7gbesha78g0qbl2ci3hz6lw4ddt7url4e/tinymce/7/tinymce.min.js" referrerpolicy="origin"></script>
+        <!-- Place the following <script> and <textarea> tags your HTML's <body> -->
+            <script>
+                tinymce.init({
+                    selector: 'textarea',
+                    plugins: 'anchor autolink charmap codesample emoticons image link lists media searchreplace table visualblocks wordcount linkchecker',
+                    toolbar: 'undo redo | blocks fontfamily fontsize | bold italic underline strikethrough | link image media table | align lineheight | numlist bullist indent outdent | emoticons charmap | removeformat',
+                });
+            </script>
+        </body>
+        </html>
