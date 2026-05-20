@@ -1,3 +1,11 @@
+## Documentazione
+
+La documentazione completa del progetto è disponibile qui:
+
+[DOCUMENTAZIONE.md](./DOCUMENTAZIONE.md)
+
+
+
 ## Rate limiter mancante
 
 ### Scenario:
