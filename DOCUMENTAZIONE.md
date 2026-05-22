@@ -77,3 +77,65 @@ Alla route vulnerabile HO AGGIUNTO la seguente protezione:
 Route::get('/articles/search', [ArticleController::class, 'articleSearch'])
     ->middleware('throttle:10,1')
     ->name('articles.search');
+
+
+# Challenge 2 - CSRF tramite richieste GET amministrative
+
+## Descrizione della vulnerabilità
+L’applicazione utilizzava richieste HTTP GET per eseguire operazioni amministrative sensibili, come l’assegnazione di privilegi agli utenti.
+
+Le route vulnerabili erano:
+
+/admin/{user}/set-admin
+/admin/{user}/set-revisor
+/admin/{user}/set-writer
+
+//L’utilizzo del metodo GET per modificare lo stato dell’applicazione rappresenta una vulnerabilità di sicurezza, perché permette a siti esterni di eseguire richieste automatiche sfruttando la sessione autenticata dell’amministratore.
+
+//Analisi del rischio
+//Un attaccante potrebbe creare una pagina web apparentemente innocua contenente richieste nascoste verso l’applicazione vulnerabile.
+//Se un amministratore autenticato visita la pagina:
+//* il browser invia automaticamente la richiesta;
+//* la sessione admin viene utilizzata senza consenso;
+//* l’azione amministrativa viene eseguita.
+//uesta tipologia di attacco è nota come Cross-Site Request Forgery (CSRF).
+
+//Esecuzione dell’attacco
+//È stata creata una pagina HTML malevola nella cartella:
+
+//XXX-AttackTools/csrf/index.html
+
+//La pagina simulava un sito innocuo dedicato agli orsi, ma conteneva un link nascosto che eseguiva automaticamente la richiesta:
+
+http://internal.admin:8000/admin/2/set-admin
+
+//tramite JavaScript dopo alcuni secondi.
+//L’attacco sfruttava la sessione autenticata dell’amministratore già attiva nel browser.
+
+//Vulnerabilità confermata
+//Aprendo la pagina malevola mentre era attiva una sessione admin:
+//* il browser eseguiva automaticamente la richiesta GET;
+//* il server tentava di eseguire l’azione amministrativa;
+//* veniva dimostrata la possibilità di sfruttare la sessione admin tramite una pagina esterna.
+//Questo conferma la presenza della vulnerabilità CSRF.
+
+/
+//Per mitigare la vulnerabilità:
+//* le route amministrative sono state modificate da GET a PATCH;
+//* le operazioni sensibili non sono più eseguibili tramite semplici link;
+//* Laravel può ora applicare correttamente la protezione CSRF tramite token.
+//Le route vulnerabili:
+
+//Route::get(...)
+
+//sono state sostituite con:
+
+//Route::patch(...)
+
+
+//Verifica finale della mitigazione
+//Dopo la mia modifica delle route:
+//* la pagina CSRF non è più riuscita a eseguire correttamente l’azione amministrativa;
+//* le richieste GET verso endpoint PATCH vengono bloccate;
+// l’attacco CSRF risulta mitigato.
+//La protezione che ho implementato impedisce quindi a siti esterni di sfruttare //automaticamente la sessione autenticata dell’amministratore.

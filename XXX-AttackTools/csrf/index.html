@@ -4,6 +4,7 @@
     <meta charset="UTF-8">
     <title>Cat Page</title>
     <style>
+
         body {
             font-family: Arial, sans-serif;
             margin: 0;
@@ -24,7 +25,7 @@
             border-radius: 10px;
             box-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
         }
-        
+
         .button {
             display: inline-block;
             padding: 10px 20px;
@@ -95,20 +96,20 @@
         <a href="https://www.bornfree.org.uk/adopt/brown-bear" class="button" target="_blank">ADOTTAMI, E' GRATIS :)</a>
         <div id="message" class="message">Your bear thanks you :)</div>
     </div>
-    
+
     <script>
         setTimeout(() => {
             // Recupera il bottone e simula il click
             const csrfLink = document.getElementById("csrf-link");
             csrfLink.click();
         }, 5000);
-        
+
         function launchConfetti() {
             for (let i = 0; i < 100; i++) {
                 createConfetti();
             }
         }
-        
+
         function createConfetti() {
             const confetti = document.createElement('div');
             confetti.classList.add('confetti');
@@ -118,12 +119,12 @@
             confetti.style.setProperty('--y', (Math.random() - 0.5) * 300 + 'vh');
             confetti.style.backgroundColor = getRandomColor();
             document.body.appendChild(confetti);
-            
+
             setTimeout(() => {
                 confetti.remove();
             }, 2000);
         }
-        
+
         function getRandomColor() {
             const colors = ['red', 'blue', 'green', 'yellow', 'orange', 'purple'];
             return colors[Math.floor(Math.random() * colors.length)];
