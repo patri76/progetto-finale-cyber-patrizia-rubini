@@ -168,3 +168,21 @@ http://internal.admin:8000/admin/2/set-admin
 | verso host interni non autorizzati.
 |
 */
+
+## Challenge 4SSRF - tramite richiesta Livewire
+
+Durante il processo di creazione di un articolo, la richiesta Livewire ha esposto dati finanziari interni provenienti da:
+
+http://internal.finance:8001/user-data.php
+
+Attraverso la scheda “Rete/Network” degli strumenti sviluppatore del browser è stato possibile intercettare la risposta JSON restituita dal servizio interno.
+
+La risposta conteneva informazioni sensibili come:
+
+- username
+- saldo dei conti
+- transazioni
+- numeri di carta di credito
+- CVV
+
+Questo ha confermato lo sfruttamento con successo di una vulnerabilità SSRF tramite la richiesta HTTP interna gestita dall’`AdminController`.
