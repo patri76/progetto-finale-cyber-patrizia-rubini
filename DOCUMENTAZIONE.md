@@ -139,3 +139,32 @@ http://internal.admin:8000/admin/2/set-admin
 //* le richieste GET verso endpoint PATCH vengono bloccate;
 // l’attacco CSRF risulta mitigato.
 //La protezione che ho implementato impedisce quindi a siti esterni di sfruttare //automaticamente la sessione autenticata dell’amministratore.
+
+/*
+|--------------------------------------------------------------------------
+| Challenge 3 - SSRF (Server-Side Request Forgery)
+|--------------------------------------------------------------------------
+|
+| Vulnerabilità:
+| Il controller amministratore effettuava una richiesta HTTP verso
+| un servizio interno utilizzando HttpService.
+|
+| Questo comportamento poteva rappresentare un rischio SSRF,
+| permettendo potenzialmente richieste server-side verso risorse
+| interne dell’infrastruttura.
+|
+| Endpoint coinvolto:
+| http://internal.finance:8001/user-data.php
+|
+| Mitigazione che ho implementato:
+| - controllo degli endpoint autorizzati;
+| - gestione delle eccezioni;
+| - logging dei tentativi sospetti;
+| - blocco delle richieste non consentite.
+|
+| Verifica finale:
+| Dopo la mitigazione l’applicazione registra nei log Laravel
+| eventuali tentativi sospetti e impedisce richieste arbitrarie
+| verso host interni non autorizzati.
+|
+*/
