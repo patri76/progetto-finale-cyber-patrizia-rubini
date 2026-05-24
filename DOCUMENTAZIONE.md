@@ -278,3 +278,5 @@ Questo ha confermato lo sfruttamento con successo di una vulnerabilità SSRF tra
 //
 // Dopo la mitigazione il browser blocca il caricamento del sito
 // dentro iframe esterni, impedendo l’attacco di Clickjacking.
+
+## progetto finito!!!
