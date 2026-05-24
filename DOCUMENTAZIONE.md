@@ -258,3 +258,23 @@ Questo ha confermato lo sfruttamento con successo di una vulnerabilità SSRF tra
 //
 // inviati manualmente dall’utente vengono ignorati dal framework
 // e non possono modificare i privilegi dell’account.
+
+## BONUS - Clickjacking
+//
+// Ho  creato un attacco di Clickjacking tramite iframe,
+// caricando il sito all’interno di una pagina malevola.
+//
+// Vulnerabilità:
+// Il browser permetteva il rendering del sito dentro un iframe,
+// consentendo ad un attaccante di sovrapporre elementi ingannevoli
+// e indurre l’utente a cliccare su contenuti invisibili.
+//
+// Mitigazione:
+// È stato implementato un middleware Laravel che aggiunge:
+//
+// X-Frame-Options: DENY
+//
+// a tutte le risposte HTTP.
+//
+// Dopo la mitigazione il browser blocca il caricamento del sito
+// dentro iframe esterni, impedendo l’attacco di Clickjacking.

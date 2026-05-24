@@ -12,8 +12,14 @@ return Application::configure(basePath: dirname(__DIR__))
         commands: __DIR__.'/../routes/console.php',
         health: '/up',
     )
+
     ->withMiddleware(function (Middleware $middleware) {
+
+        // BONUS - Clickjacking protection
+        $middleware->append(\App\Http\Middleware\ClickjackingProtection::class);
+
         // $middleware->append(RateLimit::class);
+
         $middleware->alias([
             'admin' => App\Http\Middleware\UserIsAdmin::class,
             'revisor' => App\Http\Middleware\UserIsRevisor::class,
@@ -21,6 +27,7 @@ return Application::configure(basePath: dirname(__DIR__))
             'admin.local'=> App\Http\Middleware\OnlyLocalAdmin::class
         ]);
     })
+
     ->withExceptions(function (Exceptions $exceptions) {
         //
     })->create();
