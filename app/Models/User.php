@@ -11,6 +11,42 @@ class User extends Authenticatable
 {
     use HasFactory, Notifiable;
 
+    /*
+    |--------------------------------------------------------------------------
+    | Challenge 6 - Mass Assignment / Fillable Vulnerability
+    |--------------------------------------------------------------------------
+    |
+    | Vulnerabilità:
+    | Nel modello User erano presenti tra i campi fillable anche:
+    | - is_admin
+    | - is_revisor
+    | - is_writer
+    |
+    | Questo rappresentava una vulnerabilità di Mass Assignment,
+    | perché un utente malevolo avrebbe potuto manipolare una request
+    | HTTP aggiungendo campi non previsti dal form, ad esempio:
+    |
+    | is_admin=1
+    |
+    | ottenendo privilegi amministrativi senza autorizzazione.
+    |
+    | Mitigazione:
+    | Sono stati rimossi da $fillable tutti i campi relativi ai ruoli.
+    |
+    | Il modello ora consente il mass assignment solo per:
+    | - name
+    | - email
+    | - password
+    |
+    | Dopo la mitigazione eventuali campi come:
+    | is_admin
+    | is_revisor
+    | is_writer
+    |
+    | inviati dall’utente vengono ignorati dal framework.
+    |
+    */
+
     /**
      * The attributes that are mass assignable.
      *
@@ -20,9 +56,6 @@ class User extends Authenticatable
         'name',
         'email',
         'password',
-        'is_admin',
-        'is_revisor',
-        'is_writer'
     ];
 
     /**
@@ -48,7 +81,8 @@ class User extends Authenticatable
         ];
     }
 
-    public function articles(){
+    public function articles()
+    {
         return $this->hasMany(Article::class);
     }
 }

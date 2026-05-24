@@ -186,3 +186,75 @@ La risposta conteneva informazioni sensibili come:
 - CVV
 
 Questo ha confermato lo sfruttamento con successo di una vulnerabilità SSRF tramite la richiesta HTTP interna gestita dall’`AdminController`.
+
+## Challenge 5 - Stored XSS
+// È stato inserito nel campo testo dell’articolo il payload:
+// <script>alert('hacked')</script>
+//
+// Il sistema ha permesso il salvataggio del contenuto senza blocchi lato backend.
+//
+// Successivamente:
+// - l’articolo è stato approvato dal revisore
+// - pubblicato nella parte pubblica del blog
+// - visualizzato da un utente guest
+//
+// Il payload viene mostrato nella pagina pubblica del sito.
+// Tuttavia il browser non esegue il JavaScript perché il contenuto viene renderizzato escaped dal frontend.
+//
+// Questo comportamento dimostra comunque:
+// - validazione lato server assente o debole
+// - possibilità di memorizzare payload malevoli nel database
+// - potenziale rischio Stored XSS
+//
+// Possibili impatti:
+// - esecuzione di JavaScript arbitrario
+// - furto cookie/sessioni
+// - impersonificazione utenti
+// - defacement pagina
+//
+// Mitigazione consigliata:
+// - sanitizzazione lato server
+// - escaping output Blade
+// - whitelist tag HTML consentiti
+//
+// Esempio mitigazione:
+//
+// $cleanText = strip_tags($request->text);
+//
+// oppure:
+//
+// $cleanText = htmlspecialchars($request->text);
+//
+// Dopo la mitigazione il payload viene mostrato solo come testo
+// e non viene eseguito dal browser.
+
+// Challenge 6 - Mass Assignment
+//
+// Nel modello User erano presenti tra i campi fillable anche:
+// - is_admin
+// - is_revisor
+// - is_writer
+//
+// Questo rappresentava una vulnerabilità di tipo Mass Assignment,
+// perché un utente malevolo avrebbe potuto manipolare una request HTTP
+// aggiungendo campi non previsti dal form, ad esempio:
+//
+// is_admin=1
+//
+// ottenendo privilegi amministrativi senza autorizzazione.
+//
+// Mitigazione:
+// Sono stati rimossi da $fillable tutti i campi relativi ai ruoli.
+//
+// Ora il modello User permette il mass assignment solo per:
+// - name
+// - email
+// - password
+//
+// Dopo la mitigazione eventuali campi come:
+// is_admin
+// is_revisor
+// is_writer
+//
+// inviati manualmente dall’utente vengono ignorati dal framework
+// e non possono modificare i privilegi dell’account.
